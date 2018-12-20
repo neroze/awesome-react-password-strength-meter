@@ -1,0 +1,27 @@
+# Editors
+*.sublime*
+
+# Libs
+node_modules
+bower_components
+
+# OS
+.DS_Store
+/**/.DS_Store
+
+# Compilers
+.sass-cache
+
+# Build (grunt)
+/out
+/build
+/test
+src/test/**/*__generated.js
+src/test/images
+src/common/config/config.js
+images/sprites.svg
+images/styleable-sprites.svg
+*.log
+*.log.*
+.nyc_output
+/coverage
