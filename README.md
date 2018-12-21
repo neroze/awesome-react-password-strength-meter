@@ -1,6 +1,9 @@
 # self-validating-text-field
 self-validating-text-field
 
+### Demo
+[Demo](https://codesandbox.io/s/8l4o23lv3j)
+
 ```
 import React, { Fragment } from "react";
 import PasswordStrength from "self-validating-text-field";
