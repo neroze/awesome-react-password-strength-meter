@@ -13,6 +13,10 @@ var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require("prop-types");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -105,10 +109,19 @@ var _class = function (_React$Component) {
           children = _props.children,
           value = _props.value,
           minLength = _props.minLength,
-          myStyles = _props.myStyles;
+          myStyles = _props.myStyles,
+          errorBorder = _props.errorBorder;
 
       var strength = strengthIndicator(value, minLength);
       var color = strengthColor(strength);
+      var style = {
+        display: "inline-block"
+      };
+
+      if (errorBorder) {
+        style.border = "2px solid " + color;
+      }
+
       return _react2.default.createElement(
         _react.Fragment,
         null,
@@ -121,12 +134,7 @@ var _class = function (_React$Component) {
           },
           _react2.default.createElement(
             "span",
-            {
-              style: {
-                border: "2px solid " + color,
-                display: "inline-block"
-              }
-            },
+            { style: style },
             children
           ),
           _react2.default.createElement("span", {
@@ -147,4 +155,16 @@ var _class = function (_React$Component) {
   return _class;
 }(_react2.default.Component);
 
+_class.proptypes = {
+  children: _propTypes2.default.object,
+  myStyles: _propTypes2.default.object,
+  errorBorder: _propTypes2.default.bool,
+  value: _propTypes2.default.string,
+  minLength: _propTypes2.default.number
+};
+_class.defaultProps = {
+  errorBorder: true,
+  value: '',
+  minLength: 5
+};
 exports.default = _class;

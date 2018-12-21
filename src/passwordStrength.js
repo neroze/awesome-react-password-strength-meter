@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import Proptypes from "prop-types";
 
 const hasNumber = value => {
   return new RegExp(/[0-9]/).test(value);
@@ -61,10 +62,32 @@ export default class extends React.Component {
     password: ""
   };
 
+  static proptypes = {
+    children: Proptypes.object,
+    myStyles: Proptypes.object,
+    errorBorder: Proptypes.bool,
+    value: Proptypes.string,
+    minLength: Proptypes.number
+  }
+
+  static defaultProps = {
+    errorBorder: true,
+    value: '',
+    minLength: 5
+  };
+
   render() {
-    let { children, value, minLength, myStyles } = this.props;
+    let { children, value, minLength, myStyles, errorBorder } = this.props;
     const strength = strengthIndicator(value, minLength);
     const color = strengthColor(strength);
+    const style = {
+      display: "inline-block"
+    };
+
+    if (errorBorder) {
+      style.border = `2px solid ${color}`;
+    }
+
     return (
       <Fragment>
         <span
@@ -72,14 +95,7 @@ export default class extends React.Component {
             display: "inline-block"
           }}
         >
-          <span
-            style={{
-              border: `2px solid ${color}`,
-              display: "inline-block"
-            }}
-          >
-            {children}
-          </span>
+          <span style={style}>{children}</span>
           <span
             style={{
               width: `${strengthProgress(strength)}`,
