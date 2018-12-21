@@ -6,8 +6,9 @@ self-validating-text-field
 
 ```
 import React, { Fragment } from "react";
-import PasswordStrength from "self-validating-text-field";
+import PasswordStrength from "./passwordStrength";
 
+const StrengthLabel = () => <b>Strength</b>;
 export default class extends React.Component {
   state = {
     password: "",
@@ -21,22 +22,60 @@ export default class extends React.Component {
   render() {
     return (
       <Fragment>
-        <label>Password: </label>
-        <PasswordStrength
-          name="password-strength"
-          value={this.state.password}
-          minLength={10}
-          myStyles={{
-            height: "10px",
-            marginTop: "5px"
+        <div
+          style={{
+            border: "1px solid red",
+            textAlign: "left",
+            diplay: "block",
+            width: "500px"
           }}
         >
-          <input
-            name="password"
-            onChange={this.handlePasswordChange}
+          <PasswordStrength
+            name="password-strength"
             value={this.state.password}
-          />
-        </PasswordStrength>
+            minLength={3}
+            errorBorder={false}
+            myStyles={{
+              height: "8px",
+              marginTop: "5px",
+              display: "inline-block"
+            }}
+            strengthLabel={{
+              text: `%strength%`,
+              label: StrengthLabel, // optional either string or component
+              visible: true,
+              style: {
+                display: "inline",
+                paddingRight: "10px",
+                width: "50%"
+              }
+            }}
+            colors={{
+              weak: {
+                color: "red",
+                label: "Very weak"
+              },
+              good: {
+                color: "orange",
+                label: "Good"
+              },
+              strong: {
+                color: "lightgreen",
+                label: "Strong"
+              },
+              veryStrong: {
+                color: "green",
+                label: "Awesome Very strong"
+              }
+            }}
+          >
+            <input
+              name="password"
+              onChange={this.handlePasswordChange}
+              value={this.state.password}
+            />
+          </PasswordStrength>
+        </div>
       </Fragment>
     );
   }
