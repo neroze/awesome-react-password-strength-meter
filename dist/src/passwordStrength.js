@@ -147,7 +147,7 @@ var _class = function (_React$Component) {
           defaultStrengthLabel = _props.defaultStrengthLabel;
 
       var strength = strengthIndicator(value, minLength);
-      colors = _extends({}, colors, defaultColors);
+      colors = _extends({}, defaultColors, colors);
       strengthLabel = _extends({}, defaultStrengthLabel, strengthLabel);
 
       var _strengthInfo = strengthInfo(strength, colors, strengthLabel),
