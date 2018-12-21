@@ -1,52 +1,39 @@
 # self-validating-text-field
-Self Validating test field
+self-validating-text-field
 
 ```
 import React, { Fragment } from "react";
-import InputField from "self-validating-text-fiel";
-import SimpleReactValidator from "simple-react-validator";
+import PasswordStrength from "self-validating-text-field";
 
 export default class extends React.Component {
   state = {
-    email: "hello@world.com"
+    password: "",
   };
 
-  componentDidMount = () => {
-    const validator = new SimpleReactValidator();
-    this.setState({ validator });
-  };
-
-  submit = () => {
-    if (this.validator.allValid()) {
-      alert("You submitted the form and stuff!");
-    } else {
-      this.validator.showMessages();
-      // rerender to show messages for the first time
-      this.forceUpdate();
-    }
+  handlePasswordChange = e => {
+    e.persist();
+    this.setState({ password: e.target.value });
   };
 
   render() {
     return (
       <Fragment>
-        {this.state.validator && (
-          <InputField
-            validator={this.state.validator}
-          >
-            <input
-              name="myname"
-              placeholder={"Name"}
-              onChange={e => {
-                const { value } = e.target;
-                console.log("-sdfsdf---------->", value);
-              }}
-              rules={"required|email"}
-              value={this.state.email}
-            />
-          </InputField>
-        )}
-
-        <button onClick={this.submit}>Submit</button>
+        <label>Password: </label>
+        <PasswordStrength
+          name="password-strength"
+          value={this.state.password}
+          minLength={10}
+          myStyles={{
+            height: "10px",
+            marginTop: "5px"
+          }}
+        >
+          <input
+            name="password"
+            onChange={this.handlePasswordChange}
+            value={this.state.password}
+          />
+        </PasswordStrength>
       </Fragment>
     );
   }
