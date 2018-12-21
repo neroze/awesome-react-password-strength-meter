@@ -80,7 +80,9 @@ export default class extends React.Component {
     let { children, value, minLength, myStyles, errorBorder } = this.props;
     const strength = strengthIndicator(value, minLength);
     const color = strengthColor(strength);
-    const style = {};
+    const style = {
+      display: 'block'
+    };
 
     if (errorBorder) {
       style.border = `1px solid ${color}`;

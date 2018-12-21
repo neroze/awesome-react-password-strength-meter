@@ -114,7 +114,7 @@ var _class = function (_React$Component) {
 
       var strength = strengthIndicator(value, minLength);
       var color = strengthColor(strength);
-      var style = {};
+      var style = { display: 'block' };
 
       if (errorBorder) {
         style.border = "1px solid " + color;
