@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.strengthProgress = exports.strengthIndicator = exports.strengthColor = undefined;
+exports.StrengthLabel = exports.strengthProgress = exports.strengthIndicator = exports.strengthInfo = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -37,21 +37,41 @@ var hasSpecial = function hasSpecial(value) {
   return new RegExp(/[!#@$%^&*)(+=._-]/).test(value);
 };
 
-var strengthColor = exports.strengthColor = function strengthColor(count) {
+var strengthInfo = exports.strengthInfo = function strengthInfo(count, colors, strengthLabel) {
+  var info = {};
   if (count === 1) return "transparent";
-  if (count <= 2) return "red";
+  if (count <= 2) {
+    info.color = colors.poor.color;
+    info.strengthText = strengthLabel.text.replace("%strength%", colors.poor.label);
+    return info;
+  }
 
-  if (count < 3) return "yellow";
+  if (count < 3) {
+    info.color = colors.weak.color;
+    info.strengthText = strengthLabel.text.replace("%strength%", colors.weak.label);
+    return info;
+  }
+  if (count < 4) {
+    info.color = colors.good.color;
+    info.strengthText = strengthLabel.text.replace("%strength%", colors.good.label);
+    return info;
+  }
 
-  if (count < 4) return "orange";
+  if (count < 5) {
+    info.color = colors.strong.color;
+    info.strengthText = strengthLabel.text.replace("%strength%", colors.strong.label);
+    return info;
+  }
 
-  if (count < 5) return "lightgreen";
-
-  if (count < 6) return "green";
+  if (count < 6) {
+    info.color = colors.veryStrong.color;
+    info.strengthText = strengthLabel.text.replace("%strength%", colors.veryStrong.label);
+    return info;
+  }
 };
 
 var strengthIndicator = exports.strengthIndicator = function strengthIndicator(value) {
-  var minLength = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 7;
+  var minLength = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 3;
 
   var strengths = 1;
   var primaryCondition = value.length >= minLength;
@@ -83,6 +103,16 @@ var strengthProgress = exports.strengthProgress = function strengthProgress(stre
   return progress + "%";
 };
 
+var StrengthLabel = exports.StrengthLabel = function StrengthLabel(strength, Label) {
+  if (strength <= 1) return null;
+
+  if (typeof Label === "string") {
+    return Label;
+  } else if (typeof Label === "function") {
+    return _react2.default.createElement(Label, null);
+  }
+};
+
 var _class = function (_React$Component) {
   _inherits(_class, _React$Component);
 
@@ -110,11 +140,21 @@ var _class = function (_React$Component) {
           value = _props.value,
           minLength = _props.minLength,
           myStyles = _props.myStyles,
-          errorBorder = _props.errorBorder;
+          errorBorder = _props.errorBorder,
+          colors = _props.colors,
+          defaultColors = _props.defaultColors,
+          strengthLabel = _props.strengthLabel,
+          defaultStrengthLabel = _props.defaultStrengthLabel;
 
       var strength = strengthIndicator(value, minLength);
-      var color = strengthColor(strength);
-      var style = { display: 'block' };
+      colors = _extends({}, colors, defaultColors);
+      strengthLabel = _extends({}, defaultStrengthLabel, strengthLabel);
+
+      var _strengthInfo = strengthInfo(strength, colors, strengthLabel),
+          color = _strengthInfo.color,
+          strengthText = _strengthInfo.strengthText;
+
+      var style = { display: "block" };
 
       if (errorBorder) {
         style.border = "1px solid " + color;
@@ -123,21 +163,42 @@ var _class = function (_React$Component) {
       return _react2.default.createElement(
         _react.Fragment,
         null,
+        children,
         _react2.default.createElement(
-          "span",
-          { style: style },
-          children
-        ),
-        _react2.default.createElement("span", {
-          style: _extends({
-            width: "" + strengthProgress(strength),
-            display: "block",
-            height: "2px",
-            background: "" + color,
-            marginBottom: "5px"
-          }, myStyles),
-          name: "password-strength"
-        })
+          "div",
+          {
+            style: {
+              width: "100%",
+              display: "flex",
+              alignItems: "center"
+            }
+          },
+          _react2.default.createElement(
+            "div",
+            {
+              style: {
+                width: "50%",
+                flex: "1 auto"
+              }
+            },
+            _react2.default.createElement("span", {
+              style: _extends({
+                width: "" + strengthProgress(strength),
+                display: "block",
+                height: "2px",
+                background: "" + color,
+                marginBottom: "5px"
+              }, myStyles),
+              name: "password-strength"
+            })
+          ),
+          strengthLabel.visible && _react2.default.createElement(
+            "span",
+            { style: strengthLabel.style },
+            StrengthLabel(strength, strengthLabel.label),
+            strengthText
+          )
+        )
       );
     }
   }]);
@@ -150,11 +211,45 @@ _class.proptypes = {
   myStyles: _propTypes2.default.object,
   errorBorder: _propTypes2.default.bool,
   value: _propTypes2.default.string,
-  minLength: _propTypes2.default.number
+  minLength: _propTypes2.default.number,
+  strengthLabel: _propTypes2.default.number
 };
 _class.defaultProps = {
   errorBorder: true,
   value: "",
-  minLength: 5
+  minLength: 5,
+  defaultStrengthLabel: {
+    label: "",
+    text: "Strength : %strength%",
+    visible: true,
+    style: {
+      display: "block",
+      flex: "1 auto",
+      padding: "0 18px",
+      fontFamily: "inherit"
+    }
+  },
+  defaultColors: {
+    poor: {
+      color: "red",
+      label: "Very weak"
+    },
+    weak: {
+      color: "red",
+      label: "Very weak"
+    },
+    good: {
+      color: "orange",
+      label: "Good"
+    },
+    strong: {
+      color: "lightgreen",
+      label: "Strong"
+    },
+    veryStrong: {
+      color: "green",
+      label: "Very strong"
+    }
+  }
 };
 exports.default = _class;
