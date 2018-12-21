@@ -177,8 +177,7 @@ var _class = function (_React$Component) {
             "div",
             {
               style: {
-                width: "50%",
-                flex: "1 auto"
+                width: "50%"
               }
             },
             _react2.default.createElement("span", {
@@ -223,7 +222,7 @@ _class.defaultProps = {
     text: "Strength : %strength%",
     visible: true,
     style: {
-      display: "block",
+      display: "flex",
       flex: "1 auto",
       padding: "0 18px",
       fontFamily: "inherit"
