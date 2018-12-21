@@ -114,12 +114,10 @@ var _class = function (_React$Component) {
 
       var strength = strengthIndicator(value, minLength);
       var color = strengthColor(strength);
-      var style = {
-        display: "inline-block"
-      };
+      var style = {};
 
       if (errorBorder) {
-        style.border = "2px solid " + color;
+        style.border = "1px solid " + color;
       }
 
       return _react2.default.createElement(
@@ -127,27 +125,19 @@ var _class = function (_React$Component) {
         null,
         _react2.default.createElement(
           "span",
-          {
-            style: {
-              display: "inline-block"
-            }
-          },
-          _react2.default.createElement(
-            "span",
-            { style: style },
-            children
-          ),
-          _react2.default.createElement("span", {
-            style: _extends({
-              width: "" + strengthProgress(strength),
-              display: "block",
-              height: "2px",
-              background: "" + color,
-              marginBottom: "5px"
-            }, myStyles),
-            name: "password-strength"
-          })
-        )
+          { style: style },
+          children
+        ),
+        _react2.default.createElement("span", {
+          style: _extends({
+            width: "" + strengthProgress(strength),
+            display: "block",
+            height: "2px",
+            background: "" + color,
+            marginBottom: "5px"
+          }, myStyles),
+          name: "password-strength"
+        })
       );
     }
   }]);
@@ -164,7 +154,7 @@ _class.proptypes = {
 };
 _class.defaultProps = {
   errorBorder: true,
-  value: '',
+  value: "",
   minLength: 5
 };
 exports.default = _class;

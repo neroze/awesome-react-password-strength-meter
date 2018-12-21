@@ -68,11 +68,11 @@ export default class extends React.Component {
     errorBorder: Proptypes.bool,
     value: Proptypes.string,
     minLength: Proptypes.number
-  }
+  };
 
   static defaultProps = {
     errorBorder: true,
-    value: '',
+    value: "",
     minLength: 5
   };
 
@@ -80,34 +80,26 @@ export default class extends React.Component {
     let { children, value, minLength, myStyles, errorBorder } = this.props;
     const strength = strengthIndicator(value, minLength);
     const color = strengthColor(strength);
-    const style = {
-      display: "inline-block"
-    };
+    const style = {};
 
     if (errorBorder) {
-      style.border = `2px solid ${color}`;
+      style.border = `1px solid ${color}`;
     }
 
     return (
       <Fragment>
+        <span style={style}>{children}</span>
         <span
           style={{
-            display: "inline-block"
+            width: `${strengthProgress(strength)}`,
+            display: "block",
+            height: "2px",
+            background: `${color}`,
+            marginBottom: "5px",
+            ...myStyles
           }}
-        >
-          <span style={style}>{children}</span>
-          <span
-            style={{
-              width: `${strengthProgress(strength)}`,
-              display: "block",
-              height: "2px",
-              background: `${color}`,
-              marginBottom: "5px",
-              ...myStyles
-            }}
-            name="password-strength"
-          />
-        </span>
+          name="password-strength"
+        />
       </Fragment>
     );
   }
