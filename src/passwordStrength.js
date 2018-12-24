@@ -59,6 +59,8 @@ export const strengthInfo = (count, colors, strengthLabel) => {
     );
     return info;
   }
+
+  
 };
 
 export const strengthIndicator = (value, minLength = 3) => {
@@ -167,7 +169,7 @@ export default class extends React.Component {
       defaultStrengthLabel
     } = this.props;
     const strength = strengthIndicator(value, minLength);
-    colors = { ...colors, ...defaultColors };
+    colors = { ...defaultColors, ...colors};
     strengthLabel = { ...defaultStrengthLabel, ...strengthLabel };
     const { color, strengthText } = strengthInfo(
       strength,

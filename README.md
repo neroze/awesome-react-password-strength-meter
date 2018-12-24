@@ -1,5 +1,5 @@
-# self-validating-text-field
-self-validating-text-field
+# awesome-react-password-strength-meter
+awesome-react-password-strength-meter
 
 ### Demo
 [Demo](https://codesandbox.io/s/8l4o23lv3j)
@@ -64,7 +64,7 @@ export default class extends React.Component {
                 label: "Strong"
               },
               veryStrong: {
-                color: "green",
+                color: "#4cbac0",
                 label: "Awesome Very strong"
               }
             }}

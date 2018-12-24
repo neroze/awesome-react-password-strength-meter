@@ -1,6 +1,6 @@
 {
   "name": "awesome-react-password-strength-meter",
-  "version": "1.0.9",
+  "version": "1.0.11",
   "description": "React Password strength meter with custom input field",
   "main": "dist/src/passwordStrength.js",
   "author": "Jumper",
