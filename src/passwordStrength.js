@@ -190,25 +190,27 @@ export default class extends React.Component {
             alignItems: "center"
           }}
         >
-          <div
-            style={{
-              width: "50%",
-              height: "2px",
-              backgroundColor: "#ccc",
-              ...myStyles
-            }}
-          >
-            <span
+          {strength > 1 && (
+            <div
               style={{
-                width: `${strengthProgress(strength)}`,
-                display: "block",
-                height: "2px",
-                background: `${color}`,
+                width: "50%",
+                height: "6px",
+                backgroundColor: "#ccc",
                 ...myStyles
               }}
-              name="password-strength"
-            />
-          </div>
+            >
+              <span
+                style={{
+                  width: `${strengthProgress(strength)}`,
+                  display: "block",
+                  height: "2px",
+                  background: `${color}`,
+                  ...myStyles
+                }}
+                name="password-strength"
+              />
+            </div>
+          )}
 
           {strengthLabel.visible && (
             <span style={strengthLabel.style}>

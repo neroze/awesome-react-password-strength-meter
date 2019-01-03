@@ -173,12 +173,12 @@ var _class = function (_React$Component) {
               alignItems: "center"
             }
           },
-          _react2.default.createElement(
+          strength > 1 && _react2.default.createElement(
             "div",
             {
               style: _extends({
                 width: "50%",
-                height: "2px",
+                height: "6px",
                 backgroundColor: "#ccc"
               }, myStyles)
             },
