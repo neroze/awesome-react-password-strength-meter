@@ -51,6 +51,10 @@ export default class extends React.Component {
               }
             }}
             colors={{
+              poor: {
+                color: "red",
+                label: "Very weak"
+              },
               weak: {
                 color: "red",
                 label: "Very weak"

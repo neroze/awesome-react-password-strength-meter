@@ -59,8 +59,6 @@ export const strengthInfo = (count, colors, strengthLabel) => {
     );
     return info;
   }
-
-  
 };
 
 export const strengthIndicator = (value, minLength = 3) => {
@@ -169,7 +167,7 @@ export default class extends React.Component {
       defaultStrengthLabel
     } = this.props;
     const strength = strengthIndicator(value, minLength);
-    colors = { ...defaultColors, ...colors};
+    colors = { ...defaultColors, ...colors };
     strengthLabel = { ...defaultStrengthLabel, ...strengthLabel };
     const { color, strengthText } = strengthInfo(
       strength,
@@ -194,7 +192,10 @@ export default class extends React.Component {
         >
           <div
             style={{
-              width: "50%"
+              width: "50%",
+              height: "2px",
+              backgroundColor: "#ccc",
+              ...myStyles
             }}
           >
             <span
@@ -203,7 +204,6 @@ export default class extends React.Component {
                 display: "block",
                 height: "2px",
                 background: `${color}`,
-                marginBottom: "5px",
                 ...myStyles
               }}
               name="password-strength"
