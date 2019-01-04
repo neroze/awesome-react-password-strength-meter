@@ -178,8 +178,9 @@ var _class = function (_React$Component) {
             {
               style: _extends({
                 width: "50%",
-                height: "6px",
-                backgroundColor: "#ccc"
+                height: "2px",
+                backgroundColor: "#f2f2f0",
+                position: "relative"
               }, myStyles)
             },
             _react2.default.createElement("span", {
@@ -187,6 +188,7 @@ var _class = function (_React$Component) {
                 width: "" + strengthProgress(strength),
                 display: "block",
                 height: "2px",
+                position: "absolute",
                 background: "" + color
               }, myStyles),
               name: "password-strength"

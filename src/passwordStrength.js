@@ -194,8 +194,9 @@ export default class extends React.Component {
             <div
               style={{
                 width: "50%",
-                height: "6px",
-                backgroundColor: "#ccc",
+                height: "2px",
+                backgroundColor: "#f2f2f0",
+                position: "relative",
                 ...myStyles
               }}
             >
@@ -204,6 +205,7 @@ export default class extends React.Component {
                   width: `${strengthProgress(strength)}`,
                   display: "block",
                   height: "2px",
+                  position: "absolute",
                   background: `${color}`,
                   ...myStyles
                 }}
