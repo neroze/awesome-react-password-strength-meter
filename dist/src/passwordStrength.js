@@ -63,7 +63,7 @@ var strengthInfo = exports.strengthInfo = function strengthInfo(count, colors, s
     return info;
   }
 
-  if (count < 6) {
+  if (count >= 6) {
     info.color = colors.veryStrong.color;
     info.strengthText = strengthLabel.text.replace("%strength%", colors.veryStrong.label);
     return info;
@@ -72,19 +72,32 @@ var strengthInfo = exports.strengthInfo = function strengthInfo(count, colors, s
 
 var strengthIndicator = exports.strengthIndicator = function strengthIndicator(value) {
   var minLength = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 3;
+  var extra = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
 
   var strengths = 1;
   var primaryCondition = value.length >= minLength;
+  var strongLength = value.length >= 8;
+  var strongestLength = value.length >= 14;
 
-  if (value.length >= 1 && value.length < minLength) strengths++;
+  if (value.length >= 1 && value.length < minLength) {
+    strengths++;
+  }
 
-  if (primaryCondition) strengths++;
+  if (primaryCondition) {
+    strengths++;
+  }
+
+  if (primaryCondition && strongLength) {
+    strengths++;
+  }
+
+  if (strongestLength) {}
+
+  if (primaryCondition && hasNumber(value) && hasMixed(value)) strengths++;
 
   if (primaryCondition && hasNumber(value)) strengths++;
 
-  if (primaryCondition && hasSpecial(value)) strengths++;
-
-  if (primaryCondition && hasMixed(value)) strengths++;
+  if (primaryCondition && hasSpecial(value) && hasMixed(value)) strengths++;
 
   return strengths;
 };
@@ -94,11 +107,13 @@ var strengthProgress = exports.strengthProgress = function strengthProgress(stre
   if (strength === 2) progress = 10;
   if (strength >= 2) progress = 30;
 
-  if (strength >= 3) progress = 55;
+  if (strength >= 3) progress = 45;
 
-  if (strength >= 4) progress = 75;
+  if (strength >= 4) progress = 55;
 
-  if (strength >= 5) progress = 100;
+  if (strength >= 5) progress = 70;
+
+  if (strength >= 6) progress = 100;
 
   return progress + "%";
 };
@@ -219,7 +234,7 @@ _class.proptypes = {
 _class.defaultProps = {
   errorBorder: true,
   value: "",
-  minLength: 5,
+  minLength: 8,
   defaultStrengthLabel: {
     label: "",
     text: "Strength : %strength%",

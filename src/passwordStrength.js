@@ -51,7 +51,7 @@ export const strengthInfo = (count, colors, strengthLabel) => {
     return info;
   }
 
-  if (count < 6) {
+  if (count >= 6) {
     info.color = colors.veryStrong.color;
     info.strengthText = strengthLabel.text.replace(
       "%strength%",
@@ -61,19 +61,32 @@ export const strengthInfo = (count, colors, strengthLabel) => {
   }
 };
 
-export const strengthIndicator = (value, minLength = 3) => {
+export const strengthIndicator = (value, minLength = 3, extra = {}) => {
   let strengths = 1;
   const primaryCondition = value.length >= minLength;
+  const strongLength = value.length >= 8;
+  const strongestLength = value.length >= 14;
 
-  if (value.length >= 1 && value.length < minLength) strengths++;
+  if (value.length >= 1 && value.length < minLength) {
+    strengths++;
+  }
 
-  if (primaryCondition) strengths++;
+  if (primaryCondition) {
+    strengths++;
+  }
+
+  if (primaryCondition && strongLength) {
+    strengths++;
+  }
+
+  if (strongestLength) {
+  }
+
+  if (primaryCondition && hasNumber(value) && hasMixed(value)) strengths++;
 
   if (primaryCondition && hasNumber(value)) strengths++;
 
-  if (primaryCondition && hasSpecial(value)) strengths++;
-
-  if (primaryCondition && hasMixed(value)) strengths++;
+  if (primaryCondition && hasSpecial(value) && hasMixed(value)) strengths++;
 
   return strengths;
 };
@@ -83,11 +96,13 @@ export const strengthProgress = strength => {
   if (strength === 2) progress = 10;
   if (strength >= 2) progress = 30;
 
-  if (strength >= 3) progress = 55;
+  if (strength >= 3) progress = 45;
 
-  if (strength >= 4) progress = 75;
+  if (strength >= 4) progress = 55;
 
-  if (strength >= 5) progress = 100;
+  if (strength >= 5) progress = 70;
+
+  if (strength >= 6) progress = 100;
 
   return `${progress}%`;
 };
@@ -118,7 +133,7 @@ export default class extends React.Component {
   static defaultProps = {
     errorBorder: true,
     value: "",
-    minLength: 5,
+    minLength: 8,
     defaultStrengthLabel: {
       label: "",
       text: `Strength : %strength%`,
