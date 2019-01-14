@@ -51,7 +51,7 @@ export const strengthInfo = (count, colors, strengthLabel) => {
     return info;
   }
 
-  if (count >= 6) {
+  if (count < 6) {
     info.color = colors.veryStrong.color;
     info.strengthText = strengthLabel.text.replace(
       "%strength%",
@@ -79,14 +79,18 @@ export const strengthIndicator = (value, minLength = 3, extra = {}) => {
     strengths++;
   }
 
-  if (strongestLength) {
+  if (primaryCondition && strongLength && strongestLength) {
+    strengths++;
   }
 
-  if (primaryCondition && hasNumber(value) && hasMixed(value)) strengths++;
-
-  if (primaryCondition && hasNumber(value)) strengths++;
-
-  if (primaryCondition && hasSpecial(value) && hasMixed(value)) strengths++;
+  if (
+    primaryCondition &&
+    hasNumber(value) &&
+    hasSpecial(value) &&
+    hasMixed(value)
+  ) {
+    strengths++;
+  }
 
   return strengths;
 };
@@ -189,6 +193,7 @@ export default class extends React.Component {
       colors,
       strengthLabel
     );
+
     const style = { display: "block" };
 
     if (errorBorder) {

@@ -63,7 +63,7 @@ var strengthInfo = exports.strengthInfo = function strengthInfo(count, colors, s
     return info;
   }
 
-  if (count >= 6) {
+  if (count < 6) {
     info.color = colors.veryStrong.color;
     info.strengthText = strengthLabel.text.replace("%strength%", colors.veryStrong.label);
     return info;
@@ -91,13 +91,13 @@ var strengthIndicator = exports.strengthIndicator = function strengthIndicator(v
     strengths++;
   }
 
-  if (strongestLength) {}
+  if (primaryCondition && strongLength && strongestLength) {
+    strengths++;
+  }
 
-  if (primaryCondition && hasNumber(value) && hasMixed(value)) strengths++;
-
-  if (primaryCondition && hasNumber(value)) strengths++;
-
-  if (primaryCondition && hasSpecial(value) && hasMixed(value)) strengths++;
+  if (primaryCondition && hasNumber(value) && hasSpecial(value) && hasMixed(value)) {
+    strengths++;
+  }
 
   return strengths;
 };
