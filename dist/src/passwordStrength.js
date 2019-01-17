@@ -167,7 +167,6 @@ var _class = function (_React$Component) {
           color = _strengthInfo.color,
           strengthText = _strengthInfo.strengthText;
 
-      console.log('***', strength, strengthLabel);
       var style = { display: "block" };
 
       if (errorBorder) {

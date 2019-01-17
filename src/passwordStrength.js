@@ -1,3 +1,12 @@
+/**
+* Base App
+*
+* @namespace awesome-react-password-strength-meter
+* @author Niraj Maharjan
+* @copyright
+*
+*/
+
 import React, { Fragment } from "react";
 import Proptypes from "prop-types";
 
@@ -192,7 +201,6 @@ export default class extends React.Component {
       strengthLabel
     );
 
-    console.log('***', strength, strengthLabel)
     const style = { display: "block" };
 
     if (errorBorder) {
