@@ -105,15 +105,13 @@ var strengthIndicator = exports.strengthIndicator = function strengthIndicator(v
 var strengthProgress = exports.strengthProgress = function strengthProgress(strength) {
   var progress = 0;
   if (strength === 2) progress = 10;
-  if (strength >= 2) progress = 30;
+  if (strength >= 2) progress = 35;
 
-  if (strength >= 3) progress = 45;
+  if (strength >= 3) progress = 60;
 
-  if (strength >= 4) progress = 55;
+  if (strength >= 4) progress = 70;
 
-  if (strength >= 5) progress = 70;
-
-  if (strength >= 6) progress = 100;
+  if (strength >= 5) progress = 100;
 
   return progress + "%";
 };
@@ -169,6 +167,7 @@ var _class = function (_React$Component) {
           color = _strengthInfo.color,
           strengthText = _strengthInfo.strengthText;
 
+      console.log('***', strength, strengthLabel);
       var style = { display: "block" };
 
       if (errorBorder) {
